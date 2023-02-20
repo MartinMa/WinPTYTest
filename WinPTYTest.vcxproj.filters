@@ -28,9 +28,7 @@
     </ClInclude>
   </ItemGroup>
   <ItemGroup>
-    <None Include="winpty\bin\winpty.dll" />
-  </ItemGroup>
-  <ItemGroup>
     <CopyFileToFolders Include="winpty\bin\winpty-agent.exe" />
+    <CopyFileToFolders Include="winpty\bin\winpty.dll" />
   </ItemGroup>
 </Project>

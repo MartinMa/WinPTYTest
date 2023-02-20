@@ -12,7 +12,7 @@ void printLastError(const wchar_t* format)
     OutputDebugString(message);
 }
 
-void outputLogMessage(const TCHAR* message) {
+void outputLogMessage(const wchar_t* message) {
     // TODO Write log messages to file for Release build.
     OutputDebugString(message);
 }
@@ -39,5 +39,31 @@ int main()
         }
     }
 
-    std::wcout << cmdPath << std::endl;
+    std::wcout << "Path of cmd.exe: " << cmdPath << std::endl;
+
+    winpty_error_ptr_t configError;
+    // No specific flags.
+    winpty_config_t* config = winpty_config_new(0, &configError);
+
+    if (config == nullptr) {
+        outputLogMessage(_T("winpty_config_new failed"));
+        return 1;
+    }
+
+    winpty_config_set_initial_size(config, 80, 25);
+    winpty_config_set_mouse_mode(config, WINPTY_MOUSE_MODE_AUTO);
+    winpty_config_set_agent_timeout(config, 1000);
+
+    winpty_error_ptr_t openError;
+    winpty_t* winpty = winpty_open(config, &openError);
+    winpty_config_free(config);
+
+    if (winpty == nullptr) {
+        outputLogMessage(_T("winpty_open failed"));
+        return 1;
+    }
+
+    std::wcout << "winpty_open has been successfull" << std::endl;
+
+    winpty_free(winpty);
 }

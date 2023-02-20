@@ -143,9 +143,9 @@
     <CopyFileToFolders Include="winpty\bin\winpty-agent.exe">
       <FileType>Document</FileType>
     </CopyFileToFolders>
-    <None Include="winpty\bin\winpty.dll">
+    <CopyFileToFolders Include="winpty\bin\winpty.dll">
       <FileType>Document</FileType>
-    </None>
+    </CopyFileToFolders>
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
   <ImportGroup Label="ExtensionTargets">
