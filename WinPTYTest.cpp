@@ -87,6 +87,21 @@ int main()
 
     std::wcout << "Pipes created successfully" << std::endl;
 
+    winpty_error_ptr_t spawnConfigError;
+    winpty_spawn_config_t* spawnConfig = winpty_spawn_config_new(
+        WINPTY_SPAWN_FLAG_AUTO_SHUTDOWN,
+        cmdPath,
+        nullptr,
+        nullptr,
+        nullptr,
+        &spawnConfigError
+    );
+
+    if (spawnConfig == nullptr) {
+        outputLogMessage(_T("winpty_spawn_config_new failed"));
+        return 1;
+    }
+
     // Free handles and resources.
     CloseHandle(conout);
     CloseHandle(conerr);
