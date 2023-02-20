@@ -19,4 +19,18 @@
       <Filter>Quelldateien</Filter>
     </ClCompile>
   </ItemGroup>
+  <ItemGroup>
+    <ClInclude Include="winpty.h">
+      <Filter>Headerdateien</Filter>
+    </ClInclude>
+    <ClInclude Include="winpty_constants.h">
+      <Filter>Headerdateien</Filter>
+    </ClInclude>
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="winpty\bin\winpty.dll" />
+  </ItemGroup>
+  <ItemGroup>
+    <CopyFileToFolders Include="winpty\bin\winpty-agent.exe" />
+  </ItemGroup>
 </Project>
