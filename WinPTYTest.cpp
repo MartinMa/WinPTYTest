@@ -102,6 +102,30 @@ int main()
         return 1;
     }
 
+    winpty_error_ptr_t spawnError;
+    HANDLE process = nullptr;
+    bool spawnSuccess = winpty_spawn(
+        winpty,
+        spawnConfig,
+        &process,
+        nullptr,
+        nullptr,
+        &spawnError
+    );
+
+    winpty_spawn_config_free(spawnConfig);
+
+    if (!spawnSuccess) {
+        outputLogMessage(_T("winpty_spawn failed"));
+        return 1;
+    }
+
+    std::wcout << "New WinPTY process spawned" << std::endl;
+
+    DWORD processId = GetProcessId(process);
+
+    std::wcout << "Process ID: " << processId << std::endl;
+
     // Free handles and resources.
     CloseHandle(conout);
     CloseHandle(conerr);
