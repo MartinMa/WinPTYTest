@@ -65,5 +65,31 @@ int main()
 
     std::wcout << "winpty_open has been successfull" << std::endl;
 
+    HANDLE agentProcess = winpty_agent_process(winpty);
+    LPCWSTR coninPipeName = winpty_conin_name(winpty);
+    LPCWSTR conoutPipeName = winpty_conout_name(winpty);
+    LPCWSTR conerrPipeName = winpty_conerr_name(winpty);
+
+    HANDLE conin = CreateFile(
+        coninPipeName, GENERIC_WRITE, 0, NULL, OPEN_EXISTING, 0,
+        NULL
+    );
+
+    HANDLE conout = CreateFile(
+        conoutPipeName, GENERIC_READ, 0, NULL, OPEN_EXISTING, 0,
+        NULL
+    );
+
+    HANDLE conerr = CreateFile(
+        conerrPipeName, GENERIC_READ, 0, NULL, OPEN_EXISTING, 0,
+        NULL
+    );
+
+    std::wcout << "Pipes created successfully" << std::endl;
+
+    // Free handles and resources.
+    CloseHandle(conout);
+    CloseHandle(conerr);
+    CloseHandle(conin);
     winpty_free(winpty);
 }
